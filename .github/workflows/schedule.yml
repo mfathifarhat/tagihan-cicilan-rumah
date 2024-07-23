@@ -1,0 +1,35 @@
+name: Run Laravel Schedule
+
+on:
+  schedule:
+    - cron: '* * * * *'  # This runs every minute
+  workflow_dispatch:
+
+jobs:
+  schedule:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3.4'  # Adjust according to your Laravel PHP version
+
+    - name: Install dependencies
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+    - name: Run schedule
+      env:
+        APP_ENV: production
+        APP_KEY: ${{ secrets.APP_KEY }}  # Ensure to add APP_KEY to GitHub Secrets
+        DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+        DB_DATABASE: ${{ secrets.DB_DATABASE }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        # Add other necessary environment variables here
+      run: php artisan schedule:run
