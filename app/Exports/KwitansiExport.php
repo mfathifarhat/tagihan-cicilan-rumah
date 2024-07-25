@@ -10,13 +10,17 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class KwitansiExport implements FromCollection, WithHeadings, WithMapping
+
+
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return Auth::guard('customer')->user()->cicilan->tagihan;
+        return Auth::guard('customer')->user()->cicilan->tagihan->filter(function ($tagihan) {
+            return $tagihan->bayarBerhasil;
+        });
     }
 
     private $counter = 0;
@@ -36,14 +40,13 @@ class KwitansiExport implements FromCollection, WithHeadings, WithMapping
 
     public function map($tagihan): array
     {
-
         $this->counter++;
         return [
             $this->counter,
             '10 ' . bulan_only(ltrim($tagihan->bulan, '0')) . ' ' . $tagihan->tahun,
             number_format($tagihan->cicilan->cicilan, 0, ',', '.'),
             date_format($tagihan->created_at, 'd ') . bulan($tagihan->created_at),
-            $tagihan->bayarBerhasil ? $tagihan->bayarBerhasil->denda : 0,
+            $tagihan->bayarBerhasil->denda > 0 ? $tagihan->bayarBerhasil->denda . ' Hari' : "0 Hari",
             number_format(($tagihan->bayarBerhasil ? $tagihan->bayarBerhasil->denda : 0 / 100) * $tagihan->bayarBerhasil->customer->cicilan->cicilan, 0, ',', '.'),
             number_format($tagihan->bayarBerhasil->nominal, 0, ',', '.'),
         ];

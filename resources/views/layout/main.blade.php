@@ -24,20 +24,18 @@
                     <li>
                         <div class="pt-3 pb-2 text-muted fw-medium fs-14">Data Master</div>
                     </li>
-                    @if (Auth::user()->role == 'Admin')
-                        <li>
-                            <a href="{{ route('admin') }}"
-                                class="nav-link rounded-1 ps-2 text-muted fw-medium mb-1 d-flex align-items-center @yield('admin')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                </svg>
+                    <li>
+                        <a href="{{ route('admin') }}"
+                            class="nav-link rounded-1 ps-2 text-muted fw-medium mb-1 d-flex align-items-center @yield('admin')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                            </svg>
 
-                                <span class="ms-3">Admin</span>
-                            </a>
-                        </li>
-                    @endif
+                            <span class="ms-3">Admin</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('rumah') }}"
                             class="nav-link rounded-1 ps-2 text-muted fw-medium mb-1 d-flex align-items-center @yield('rumah')">
@@ -160,7 +158,8 @@
 
 
                             <div class="dropdown">
-                                <button class="btn border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn border-0" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" viewBox="0 0 20 20"
                                         fill="currentColor" class="w-5 h-5 text-primary">
                                         <path fill-rule="evenodd"
@@ -175,7 +174,8 @@
                                     {{-- <li>
                                         <hr class="dropdown-divider">
                                     </li> --}}
-                                    <li><a class="dropdown-item text-danger" href="{{ route('logout') }}">Sign Out</a></li>
+                                    <li><a class="dropdown-item text-danger" href="{{ route('logout') }}">Sign Out</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -260,7 +260,7 @@
                             {{ Auth::user() ? Auth::user()->name : Auth::guard('customer')->user()->nama }}</div>
                         <div class="text-muted text-end">
                             <div class="badge py-2 text-primary bg-primary-subtle">
-                                {{ Auth::user() ? Auth::user()->role : 'Customer' }}</div>
+                                {{ Auth::user() ? 'Admin' : 'Customer' }}</div>
                         </div>
                     </div>
 

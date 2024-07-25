@@ -64,7 +64,7 @@ class CicilanController extends Controller
 
     public function pengingatJapo(Customer $customer){
         $token = 'EZBLU_kFcfH+LLqtvjSA';
-        $pesan = "Halo $customer->nama, kami ingin menginformasikan bahwa kamu telah telat membayar cicilan! Denda terlambat setiap harinya adalah 1% dari harga properti kamu. Jadi pastikan untuk segera membayar cicilan anda!";
+        $pesan = "Halo $customer->nama, kami ingin menginformasikan bahwa kamu telah telat membayar cicilan! Denda terlambat setiap harinya adalah 1% dari harga rumah kamu. Jadi pastikan untuk segera membayar cicilan anda!";
 
         $curl = curl_init();
 

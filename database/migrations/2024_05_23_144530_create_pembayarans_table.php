@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tagihan_id')->constrained('tagihans')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete()->nullable();
             $table->bigInteger('nominal');
             $table->bigInteger('denda')->default(0);
             $table->string('bukti');
-            $table->string('ket');
+            $table->string('ket')->nullable();
             $table->enum('status', ['Sedang Diproses', 'Gagal', 'Berhasil'])->default('Sedang Diproses');
             $table->timestamps();
         });

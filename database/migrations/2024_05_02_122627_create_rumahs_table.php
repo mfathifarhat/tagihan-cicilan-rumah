@@ -24,7 +24,8 @@ return new class extends Migration
         // });
 
         Schema::create('rumahs', function (Blueprint $table) {
-            $table->string('blok')->primary();
+            $table->string('kode_rumah')->primary();
+            $table->string('blok');
             $table->string('gambar');
             $table->integer('jumlah_kamar');
             $table->integer('luas_tanah');

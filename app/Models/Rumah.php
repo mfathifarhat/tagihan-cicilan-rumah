@@ -9,11 +9,12 @@ class Rumah extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'blok';
+    protected $primaryKey = 'kode_rumah';
     protected $keyType = 'string';
 
     protected $fillable = [
         'blok',
+        'kode_rumah',
         'gambar',
         'jumlah_kamar',
         'luas_tanah',

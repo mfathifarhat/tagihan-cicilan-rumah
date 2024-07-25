@@ -285,7 +285,7 @@ class Tagihan extends Model
     public static function send_late($phone, $customer)
     {
         $token = 'EZBLU_kFcfH+LLqtvjSA';
-        $pesan = "Halo $customer, kami ingin menginformasikan bahwa kamu telah telat membayar cicilan! Denda terlambat setiap harinya adalah 1% dari harga properti kamu. Jadi pastikan untuk segera membayar cicilan anda!";
+        $pesan = "Halo $customer, kami ingin menginformasikan bahwa kamu telah telat membayar cicilan! Denda terlambat setiap harinya adalah 1% dari harga rumah kamu. Jadi pastikan untuk segera membayar cicilan anda!";
 
         $curl = curl_init();
 

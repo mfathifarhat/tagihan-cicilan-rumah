@@ -13,7 +13,7 @@
                         d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
 
-                <form action="{{route('search-admin')}}" method="get">
+                <form action="{{ route('search-admin') }}" method="get">
                     <input type="text" name="keyword" class="form-control form-control-solid" placeholder="Search Admin">
                 </form>
             </div>
@@ -30,13 +30,13 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm gy-5 align-middle">
+                <table class="table table-sm fs-14 gy-5 align-middle">
                     <thead class="text-muted">
                         <tr>
                             <th>No.</th>
+                            <th>Kode Admin</th>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>Role</th>
                             <th>Tanggal Dibuat</th>
                             <th class="text-end">Action</th>
                         </tr>
@@ -45,11 +45,9 @@
                         @foreach ($admins as $item)
                             <tr>
                                 <td>{{ $loop->iteration + 15 * ($admins->currentPage() - 1) }}</td>
+                                <td>{{ $item->kode_admin }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>
-                                    <div class="badge py-2 text-primary bg-primary-subtle">{{ $item->role }}</div>
-                                </td>
                                 <td>{{ date_format($item->created_at, 'd-m-Y') }}</td>
                                 <td>
                                     <div class="d-flex align-items-center justify-content-end gap-2">

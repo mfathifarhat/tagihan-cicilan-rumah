@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TagihanController;
+use App\Models\Cicilan;
 use App\Models\Customer;
 use App\Models\Tagihan;
 use Illuminate\Foundation\Inspiring;
@@ -16,41 +17,42 @@ Schedule::call(function(){
 })->everyMinute();
 
 Schedule::call(function(){
-    $customer = Customer::whereHas('cicilan', function ($query) {
+    $customer = Cicilan::whereHas('tagihan', function ($query) {
         $query->where('status', "Belum Lunas");
     })->get();
 
     foreach ($customer as $item){
-        Tagihan::send_monthly($item->no_hp, $item->nama);
+        Tagihan::send_monthly($item->customer->no_hp, $item->customer->nama);
     }
-})->monthly(7, '06:00');
+})->monthly(7);
+
+// Schedule::call(function(){
+//     $customer = Cicilan::whereHas('tagihan', function ($query) {
+//         $query->where('status', "Belum Lunas");
+//     })->get();
+
+//     foreach ($customer as $item){
+//         Tagihan::send_deadline($item->customer->no_hp, $item->customer->nama);
+//     }
+// })->monthly(10);
 
 Schedule::call(function(){
-    $customer = Customer::whereHas('cicilan', function ($query) {
+    $customer = Cicilan::whereHas('tagihan', function ($query) {
         $query->where('status', "Belum Lunas");
     })->get();
 
     foreach ($customer as $item){
-        Tagihan::send_deadline($item->no_hp, $item->nama);
+        Tagihan::send_monthly2($item->customer->no_hp, $item->customer->nama);
     }
-})->monthly(10, '06:00');
+})->monthly(3);
 
 Schedule::call(function(){
-    $customer = Customer::whereHas('cicilan', function ($query) {
+    $customer = Cicilan::whereHas('tagihan', function ($query) {
         $query->where('status', "Belum Lunas");
     })->get();
 
     foreach ($customer as $item){
-        Tagihan::send_monthly2($item->no_hp, $item->nama);
+        Tagihan::send_late($item->customer->no_hp, $item->customer->nama);
     }
-})->monthly(3, '06:00');
+})->monthly(11);
 
-Schedule::call(function(){
-    $customer = Customer::whereHas('cicilan', function ($query) {
-        $query->where('status', "Belum Lunas");
-    })->get();
-
-    foreach ($customer as $item){
-        Tagihan::send_late($item->no_hp, $item->nama);
-    }
-})->monthly(11, '06:00');

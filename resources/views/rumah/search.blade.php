@@ -4,6 +4,7 @@
             <tr>
                 <th></th>
                 <th>Blok</th>
+                <th>Kode Rumah</th>
                 <th>Gambar</th>
                 <th>Luas Tanah</th>
                 <th>Luas Bangunan</th>
@@ -16,9 +17,10 @@
                 <tr>
                     <td>
                         <input class="form-check-input form-select-lg m-0" type="radio" name="rumah" id="rumah"
-                            value="{{ $item->blok }}">
+                            value="{{ $item->kode_rumah }}">
                     </td>
                     <td>{{ $item->blok }}</td>
+                    <td>{{ $item->kode_rumah }}</td>
                     <td>
                         <img src="{{  Cloudinary::getUrl($item->gambar) }}" width="250"
                                         alt="">

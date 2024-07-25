@@ -35,6 +35,7 @@
                     <thead class="text-muted">
                         <tr>
                             <th>No.</th>
+                            <th>Kode Customer</th>
                             <th>Nama</th>
                             <th>Email</th>
                             <th>No. Hp</th>
@@ -47,6 +48,7 @@
                         @foreach ($customers as $item)
                             <tr>
                                 <td>{{ $loop->iteration + 15 * ($customers->currentPage() - 1) }}</td>
+                                <td>{{ $item->kode_customer }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->no_hp }}</td>

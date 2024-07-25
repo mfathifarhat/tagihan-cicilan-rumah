@@ -36,6 +36,18 @@ class RumahController extends Controller
             ]
         );
 
+        $latestRumah = Rumah::where('blok', $req->blok)->latest()->first();
+        if ($latestRumah) {
+            $latestKode = $latestRumah->kode_rumah;
+
+            $number = (int) substr($latestKode, 2);
+            $newKode = $req->blok . str_pad($number + 1, 2, '0', STR_PAD_LEFT);
+        }else{
+            $newKode = $req->blok . "01";
+        }
+
+        $validate['kode_rumah'] = $newKode;
+
         if ($validate) {
 
             $filename = $req->file('gambar')->storeOnCloudinary()->getPublicId();

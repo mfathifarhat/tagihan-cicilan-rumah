@@ -62,17 +62,17 @@ $('#rumahModal .save').on('click', function () {
 
     $('#data-rumah #rumah_id').val($(data[0]).find('input').val())
     $('#data-rumah #blok_rumah').val(data[1].innerHTML)
-    $('#data-rumah #luas_tanah').val(data[7].innerHTML)
-    $('#data-rumah #luas_bangunan').val(data[8].innerHTML)
-    $('#data-rumah #jumlah_kamar').val(data[5].innerHTML)
-    $('#data-rumah #harga').val(data[9].innerHTML)
+    $('#data-rumah #luas_tanah').val(data[8].innerHTML)
+    $('#data-rumah #luas_bangunan').val(data[9].innerHTML)
+    $('#data-rumah #jumlah_kamar').val(data[6].innerHTML)
+    $('#data-rumah #harga').val(data[10].innerHTML)
 
-    let totalHarga = parseInt(data[9].innerHTML) + (parseInt(data[9].innerHTML) * 15 / 100)
+    let totalHarga = parseInt(data[10].innerHTML) + (parseInt(data[10].innerHTML) * 15 / 100)
 
     $('#harga_properti').val(totalHarga)
     $('#harga_properti').closest('.form-group').find('span').html(`(${formatCurrency(totalHarga)})`)
     $('#dp').val((totalHarga) * 20 / 100)
-    $('#dp').closest('.form-group').find('span').html(`(${formatCurrency(parseInt(data[9].innerHTML) * 10 / 100)})`)
+    $('#dp').closest('.form-group').find('span').html(`(${formatCurrency(parseInt(data[10].innerHTML) * 10 / 100)})`)
 
     $(this).closest('#rumahModal').modal('hide')
 

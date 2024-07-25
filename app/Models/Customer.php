@@ -14,6 +14,7 @@ class Customer extends Authenticatable
     protected $fillable = [
         'rumah_id',
         'nama',
+        'kode_customer',
         'email',
         'password',
         'alamat',
@@ -35,6 +36,10 @@ class Customer extends Authenticatable
     public function rumah(){
         return $this->belongsTo(Rumah::class, 'rumah_id');
     }
+
+    // public function tagihan(){
+    //     return $this->hasOne(Tagihan::class);
+    // }
 
     public function pembayaran(){
         return $this->hasMany(Pembayaran::class, 'customer_id');

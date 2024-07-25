@@ -23,4 +23,8 @@ class Pembayaran extends Model
     public function customer(){
         return $this->belongsTo(Customer::class);
     }
+
+    public function tagihan(){
+        return $this->belongsTo(Tagihan::class);
+    }
 }

@@ -33,7 +33,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group mt-2">
+                        {{-- <div class="form-group mt-2">
                             <label for="email" class="form-label fs-14 fw-medium">Role</label>
                             <select name="role" class="form-select form-select-solid" id="role">
                                 <option value="Admin" {{ $user->role == 'Admin' ? 'selected' : '' }}>Admin</option>
@@ -42,7 +42,7 @@
                             @error('role')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <hr class="mt-4">

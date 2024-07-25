@@ -32,9 +32,16 @@ class AdminController extends Controller
                 'name' => 'required',
                 'password' => 'required',
                 'email' => 'email|required|unique:users,email',
-                'role' => 'required'
             ]
         );
+
+        $latestAdmin = User::latest()->first();
+        $latestKode = $latestAdmin->kode_admin;
+
+        $number = (int) substr($latestKode, 3);
+        $newKode = 'ADM' . str_pad($number + 1, 3, '0', STR_PAD_LEFT);
+
+        $validate['kode_admin'] = $newKode;
 
         if($validate){
             User::create($validate);
@@ -60,7 +67,6 @@ class AdminController extends Controller
                     Rule::unique('customers')->ignore($user->id),
                     Rule::unique('users')->ignore($user->id)
                 ],
-                'role' => 'required'
             ]
         );
 

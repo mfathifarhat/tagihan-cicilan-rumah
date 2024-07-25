@@ -126,8 +126,34 @@
 }
 
 @media print {
+    
+
     @page {
-        size: 210mm 297mm;
+        size: 210mm 160mm; /* Set the size to A4 */
+ /* Remove the default page margins */
+    }
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+
+
+
+    .flex-item {
+        width: 100%;
+        box-sizing: border-box;
+        /* Ensure padding and border are included in width */
+        flex: none;
     }
 
     .w-100 {

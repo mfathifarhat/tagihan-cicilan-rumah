@@ -1,9 +1,25 @@
 @extends('layout.app')
-@section('title', 'Kwitansi - ' . $cicilan->customer->nama)
+@section('title', 'Kwitansi - ' . $pembayaran->customer->nama)
 
 @section('body')
+    @php
+        use App\Models\Tagihan;
 
-    
+        $count = 0;
+
+        $cicilan = $pembayaran->customer->cicilan->id;
+
+        $tagihans = Tagihan::where('cicilan_id', $cicilan)->orderBy('tahun', 'asc')->orderBy('bulan', 'asc')->get();
+
+        foreach ($tagihans as $item) {
+            $count++;
+
+            if ($item->id == $pembayaran->id) {
+                break;
+            }
+        }
+    @endphp
+
 
     <div class="buttons no-print border-bottom py-2 border-1 text-end px-2">
         <button id="printBtn" class="btn btn-primary px-4 fs-14">
@@ -20,55 +36,82 @@
         </button>
     </div>
     <div class="container py-4">
-        <div class="py-2 w-100 border_full">
-            <h3 class="fw-semibold">Kwitansi Pembayaran</h3>
-        </div>
-        <div class="pb-4 pt-3">
-            <table>
-                <tr>
-                    <td>Nama</td>
-                    <td class="px-3">:</td>
-                    <td>{{ $cicilan->customer->nama }}</td>
-                </tr>
-                <tr>
-                    <td>Alamat</td>
-                    <td class="px-3">:</td>
-                    <td>{{ $cicilan->customer->alamat }}</td>
-                </tr>
-                <tr>
-                    <td>Kontak</td>
-                    <td class="px-3">:</td>
-                    <td>{{ $cicilan->customer->no_hp }}</td>
-                </tr>
-            </table>
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Cicilan ke</th>
-                    <th>Tanggal Jatuh Tempo</th>
-                    <th>Cicilan/Bulan</th>
-                    <th>Tanggal Bayar</th>
-                    <th>Terlambat(Hari)</th>
-                    <th>Nominal Denda</th>
-                    <th>Total Bayar</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($cicilan->tagihan()->orderBy('tahun', 'asc')->orderBy('bulan', 'asc')->get(); as $item)
+        <div class="d-flex justify-content-between pb-4">
+            <div class=" ">
+                <table>
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ '10 ' . bulan_only(ltrim($item->bulan, '0')) . ' ' . $item->tahun }}</td>
-                        <td>{{ number_format($cicilan->cicilan, 0, ',', '.') }}</td>
-                        <td>{{ date_format($item->created_at, 'd ') . bulan($item->created_at) }}</td>
-                        <td>{{ $item->bayarBerhasil->denda }}</td>
-                        <td> {{ number_format(($item->bayarBerhasil->denda / 100) * $item->bayarBerhasil->customer->cicilan->cicilan, 0, ',', '.') }}
-                        </td>
-                        <td> {{ number_format($item->bayarBerhasil->nominal, 0, ',', '.') }}</td>
+                        <td>Nama</td>
+                        <td class="px-3">:</td>
+                        <td>{{ $pembayaran->customer->nama }}</td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    <tr>
+                        <td>Alamat</td>
+                        <td class="px-3">:</td>
+                        <td>{{ $pembayaran->customer->alamat }}</td>
+                    </tr>
+                    <tr>
+                        <td>Kontak</td>
+                        <td class="px-3">:</td>
+                        <td>{{ $pembayaran->customer->no_hp }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class=" text-end">
+                <h4 class="fw-bold">Kwitansi</h4>
+                <p>Tanggal Cetak : {{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
+            </div>
+        </div>
+
+        <hr class="">
+        <div class="row">
+            <div class="col-3 ">
+                <span class="fw-bold">Telah Menerima Dari</span>
+            </div>
+            <div class="col-9 ">
+                <span>{{ $pembayaran->customer->nama }}</span>
+
+                <hr>
+            </div>
+            <div class="col-3 ">
+                <span class="fw-bold">Tanggal Bayar</span>
+            </div>
+            <div class="col-9 ">
+                <span>{{ \Carbon\Carbon::parse($pembayaran->created_at)->format('d-m-Y') }}</span>
+
+                <hr>
+            </div>
+            <div class="col-3 ">
+                <span class="fw-bold">Banyaknya Uang</span>
+            </div>
+            <div class="col-9 ">
+                <span>{{ angkaKeTeks($pembayaran->nominal) . ' Rupiah' }}</span>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <span class="fw-bold">Keterangan</span>
+            </div>
+            <div class="col-9">
+                <span>{{ "Pembayaran cicilan ke $count" }}. Denda keterlambatan : Rp {{ number_format($pembayaran->denda * (($pembayaran->customer->cicilan->cicilan / 100) * 1), 0, ',', '.') }}</span>
+
+                <hr>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h4 class="fw-bold m-0">Jumlah : {{ number_format($pembayaran->nominal, 0, ',', '.') }}</h4>
+            </div>
+        </div>
+        <hr>
+        <div class="text-center fs-14 fw-medium">
+            "Sesuai dengan ketentuan Management, kwitansi ini sah sehingga tidak diperlukan Tanda Tangan Basah & Stempel
+            pada kwitansi ini"
+        </div>
     </div>
 
 @endsection

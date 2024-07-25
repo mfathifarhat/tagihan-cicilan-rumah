@@ -57,6 +57,18 @@ class CustomerController extends Controller
                 'no_hp' => $validatedData['no_hp'],
             ];
 
+            $latestCustomer = Customer::latest()->first();
+            if ($latestCustomer) {
+                $latestKode = $latestCustomer->kode_customer;
+
+                $number = (int) substr($latestKode, 5);
+                $newKode = 'CUS' . str_pad($number + 1, 5, '0', STR_PAD_LEFT);
+            }else{
+                $newKode = 'CUS00001';
+            }
+
+            $customerData['kode_customer'] = $newKode;
+
             $cicilanData = [
                 'harga_properti' => $validatedData['harga_properti'],
                 'dp' => $validatedData['dp'],

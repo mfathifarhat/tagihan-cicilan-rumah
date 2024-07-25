@@ -8,6 +8,14 @@
         $nextMonthFormatted = date('m', strtotime($customer->cicilan->created_at)) + 0;
     @endphp
 
+
+    @if ($customer->cicilan->status == "Lunas")
+    <div class="card rounded-4 overflow-hidden mb-3 bg-success-subtle border-success-subtle h-100">
+        <div class="card-body fw-bold py-3 text-success">
+            Semua cicilan Anda telah selesai. Terima kasih atas kerja sama dan kepercayaan Anda.
+        </div>
+    </div>
+    @endif
     <div class="row">
         <div class="col-md-6 align-self-stretch">
             <div class="card text-white rounded-4 overflow-hidden bg-primary border-primary h-100">
@@ -61,7 +69,7 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <img src="{{ Storage::url(Auth::guard('customer')->user()->rumah->gambar) }}"
+                            <img src="{{ Cloudinary::getUrl(Auth::guard('customer')->user()->rumah->gambar) }}"
                                 class="w-100 rounded-2" alt="">
                         </div>
                     </div>

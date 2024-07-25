@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Muhammad Fathi Farhat',
+            'kode_admin'=>'ADM001',
             'email' => 'admin@gmail.com',
             'password' => 'trisa7878',
-            'role' => 'admin'
         ]);
 
         // $faker = Faker::create('id_ID');

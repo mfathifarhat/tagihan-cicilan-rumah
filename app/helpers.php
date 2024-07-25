@@ -57,3 +57,29 @@ function bulan_only($date)
 
     return $indonesianMonth;
 }
+
+function angkaKeTeks($angka)
+{
+    $satuan = ['', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan', 'Sepuluh', 'Sebelas'];
+    if ($angka < 12) {
+        return $satuan[$angka];
+    } elseif ($angka < 20) {
+        return $satuan[$angka - 10] . ' Belas';
+    } elseif ($angka < 100) {
+        return angkaKeTeks(intval($angka / 10)) . ' Puluh ' . angkaKeTeks($angka % 10);
+    } elseif ($angka < 200) {
+        return 'Seratus ' . angkaKeTeks($angka - 100);
+    } elseif ($angka < 1000) {
+        return angkaKeTeks(intval($angka / 100)) . ' Ratus ' . angkaKeTeks($angka % 100);
+    } elseif ($angka < 2000) {
+        return 'Seribu ' . angkaKeTeks($angka - 1000);
+    } elseif ($angka < 1000000) {
+        return angkaKeTeks(intval($angka / 1000)) . ' Ribu ' . angkaKeTeks($angka % 1000);
+    } elseif ($angka < 1000000000) {
+        return angkaKeTeks(intval($angka / 1000000)) . ' Juta ' . angkaKeTeks($angka % 1000000);
+    } elseif ($angka < 1000000000000) {
+        return angkaKeTeks(intval($angka / 1000000000)) . ' Miliar ' . angkaKeTeks($angka % 1000000000);
+    } else {
+        return angkaKeTeks(intval($angka / 1000000000000)) . ' Triliun ' . angkaKeTeks($angka % 1000000000000);
+    }
+}

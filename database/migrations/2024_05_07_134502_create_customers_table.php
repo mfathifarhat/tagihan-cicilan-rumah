@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('rumah_id');
+            $table->string('kode_customer')->unique();
+            $table->string('rumah_id')->unique();
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
 
-            $table->foreign('rumah_id')->references('blok')->on('rumahs')->cascadeOnDelete()->cascadeOnDelete();
+            $table->foreign('rumah_id')->references('kode_rumah')->on('rumahs')->cascadeOnDelete()->cascadeOnDelete();
 
         });
     }

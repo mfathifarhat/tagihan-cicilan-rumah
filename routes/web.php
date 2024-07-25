@@ -32,15 +32,13 @@ Route::middleware(['auth.session'])->group(function () {
         Route::middleware([RedirectIfNotAdmin::class])->group(function () {
             Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
-            Route::middleware(CheckUserRole::class)->group(function () {
-                Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-                Route::get('/admin/create', [AdminController::class, 'create'])->name('create-admin');
-                Route::post('/admin/create', [AdminController::class, 'store'])->name('store-admin');
-                Route::get('/admin/edit/{user}', [AdminController::class, 'edit'])->name('edit-admin');
-                Route::post('/admin/edit/{user}', [AdminController::class, 'update']);
-                Route::get('/admin/delete/{user}', [AdminController::class, 'delete'])->name('delete-admin');
-                Route::get('/admin/search/', [AdminController::class, 'search'])->name('search-admin');
-            });
+            Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+            Route::get('/admin/create', [AdminController::class, 'create'])->name('create-admin');
+            Route::post('/admin/create', [AdminController::class, 'store'])->name('store-admin');
+            Route::get('/admin/edit/{user}', [AdminController::class, 'edit'])->name('edit-admin');
+            Route::post('/admin/edit/{user}', [AdminController::class, 'update']);
+            Route::get('/admin/delete/{user}', [AdminController::class, 'delete'])->name('delete-admin');
+            Route::get('/admin/search/', [AdminController::class, 'search'])->name('search-admin');
 
 
             Route::get('/rumah', [RumahController::class, 'index'])->name('rumah');
@@ -57,7 +55,7 @@ Route::middleware(['auth.session'])->group(function () {
             Route::post('/rumah/blok/create', [BlokController::class, 'store'])->name('store-blok');
             Route::get('/rumah/blok/edit/{blok}', [BlokController::class, 'edit'])->name('edit-blok');
             Route::post('/rumah/blok/edit/{blok}', [BlokController::class, 'update']);
-            Route::get('/rumah/blok/delete/{blok}', [BlokController::class, 'delete'])->name('delete-blok');
+            Route::get('/rumah/blok/delete/{kode_rumah}', [BlokController::class, 'delete'])->name('delete-blok');
 
             Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
             Route::get('/customer/create', [CustomerController::class, 'create'])->name('create-customer');
@@ -84,7 +82,7 @@ Route::middleware(['auth.session'])->group(function () {
             Route::post('/cicilan/tagihan/store/{customer}', [CicilanController::class, 'storeTagihan'])->name('storeTagihan');
             Route::get('/cicilan/delete/{tagihan}', [CicilanController::class, 'delete'])->name('delete-cicilan');
 
-            
+
             Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
             // Route::get('/pembayaran/create', [PembayaranController::class, 'create'])->name('create-pembayaran');
             // Route::post('/pembayaran/create', [PembayaranController::class, 'store'])->name('store-pembayaran');
@@ -104,7 +102,8 @@ Route::middleware(['auth.session'])->group(function () {
         Route::get('/client/bayar/{tagihan}', [ClientController::class, 'bayar'])->name('client.bayar');
         Route::post('/client/bayar/{tagihan}', [ClientController::class, 'storeBayar']);
         Route::get('/client/pembayaran', [ClientController::class, 'pembayaran'])->name('client.pembayaran');
+        Route::get('/client/riwayat/print', [ClientController::class, 'riwayatPrint'])->name('client.riwayatPrint');
         Route::get('/client/riwayat/{pembayaran}', [ClientController::class, 'detail'])->name('client.detail');
-        Route::get('/client/kwitansi/', [ClientController::class, 'kwitansi'])->name('client.kwitansi');
+        Route::get('/client/kwitansi/{pembayaran}', [ClientController::class, 'kwitansi'])->name('client.kwitansi');
     });
 });
