@@ -44,7 +44,7 @@ Schedule::call(function(){
     foreach ($customer as $item){
         Tagihan::send_monthly2($item->customer->no_hp, $item->customer->nama);
     }
-})->monthlyOn(3);
+})->monthlyOn(3, '23:15');
 
 Schedule::call(function(){
     $customer = Cicilan::whereHas('tagihan', function ($query) {
